@@ -71,19 +71,18 @@ class TetrisEnv(gym.Env, abc.ABC):
         return ob
     
     def render(self, mode='human', close=False):
-        return None
-        # # Render the environment to the screen
-        # img = self.get_screen_shot()
+        # Render the environment to the screen
+        img = self.game_interface.get_screen_shot()
 
-        # if mode == 'rgb_array':
-        #     return img
-        # elif mode == 'human':
-        #     from gym.envs.classic_control import rendering
-        #     if self.viewer is None:
-        #         self.viewer = rendering.SimpleImageViewer()
-        #     self.viewer.imshow(img)
+        if mode == 'rgb_array':
+            return img
+        elif mode == 'human':
+            from gym.envs.classic_control import rendering
+            if self.viewer is None:
+                self.viewer = rendering.SimpleImageViewer()
+            self.viewer.imshow(img)
 
-        #     return self.viewer.isopen
+            return self.viewer.isopen
 
 
 class TetrisSingleEnv(TetrisEnv):
