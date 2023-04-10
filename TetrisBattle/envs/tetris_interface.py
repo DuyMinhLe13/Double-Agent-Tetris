@@ -181,7 +181,6 @@ class TetrisInterface(abc.ABC):
         # print(grid_1)
         grid_2 = self.tetris_list[1 - self.now_player]["tetris"].get_grid()
         grid_2[-1][-1] = self.time / MAX_TIME
-        grid_2.fill(0) # since only one player
         grid = np.concatenate([grid_1, grid_2], axis=1)
 
         return grid.reshape(grid.shape[0], grid.shape[1], 1)
