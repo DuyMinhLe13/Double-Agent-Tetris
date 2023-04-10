@@ -15,7 +15,7 @@ class TetrisEnv(gym.Env, abc.ABC):
     metadata = {'render.modes': ['human', 'rgb_array'], 
                 'obs_type': ['image', 'grid']}
 
-    def __init__(self, interface, gridchoice="none", obs_type="image", mode="rgb_array"):
+    def __init__(self, interface, gridchoice="none", obs_type="grid", mode="rgb_array"):
         super(TetrisEnv, self).__init__()
 
         # Define action and observation space
@@ -90,7 +90,7 @@ class TetrisSingleEnv(TetrisEnv):
     metadata = {'render.modes': ['human', 'rgb_array'], 
                 'obs_type': ['image', 'grid']}
 
-    def __init__(self, gridchoice="none", obs_type="image", mode="rgb_array"):
+    def __init__(self, gridchoice="none", obs_type="grid", mode="rgb_array"):
         super(TetrisSingleEnv, self).__init__(TetrisSingleInterface, gridchoice, obs_type, mode)
 
     def step(self, action):
@@ -123,7 +123,7 @@ class TetrisDoubleEnv(TetrisEnv):
     metadata = {'render.modes': ['human', 'rgb_array'], 
                 'obs_type': ['image', 'grid']}
 
-    def __init__(self, gridchoice="none", obs_type="image", mode="rgb_array"):
+    def __init__(self, gridchoice="none", obs_type="grid", mode="rgb_array"):
         super(TetrisDoubleEnv, self).__init__(TetrisDoubleInterface, gridchoice, obs_type, mode)
   
     def step(self, action):
