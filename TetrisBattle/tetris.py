@@ -790,12 +790,12 @@ class Tetris(object):
     def check_fallen(self):
         if collideDown(self.grid, self.block, self.px, self.py) == True:
             # self.stopcounter += 1
-            if self.LAST_FALL_DOWN_TIME >= FALL_DOWN_FREQ:
-                self._is_fallen = 1
-                put_block_in_grid(self.grid, self.block, self.px, self.py)
-                # print("fallen")
+            # if self.LAST_FALL_DOWN_TIME >= FALL_DOWN_FREQ:
+            self._is_fallen = 1
+            put_block_in_grid(self.grid, self.block, self.px, self.py)
+            # print("fallen")
 
-                return True
+            return True
 
         else:
             self._is_fallen = 0
