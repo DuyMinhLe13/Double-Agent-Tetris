@@ -97,7 +97,8 @@ class TetrisSingleEnv(TetrisEnv):
         # Execute one time step within the environment
 
         ob, reward, end, infos = self.game_interface.act(action)
-
+        ob, reward_noop, end, infos = self.game_interface.act(0)
+        reward += reward_noop
         # if 'height_sum' in infos:
         #     # print(infos)
         #     reward -= infos['height_sum'] * 0.2
