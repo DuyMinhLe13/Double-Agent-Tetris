@@ -648,13 +648,14 @@ class Tetris(object):
         for i in range(5): # 5 different pieces 
             _type = nextpieces[i].block_type()
             informations[PIECE_TYPE2NUM[_type] - 1][i + 1] = 1
+        informations[PIECE_TYPE2NUM[self.block.block_type()] - 1][6] = 1
         # index start from 6
 
-        informations[0][6] = self.sent / 100
-        informations[1][6] = self.combo / 10
-        informations[2][6] = self.pre_back2back
-        informations[3][6] = self._attacked / GRID_DEPTH
-        # informations[3][7] = self.time / MAX_TIME
+        informations[0][7] = self.sent / 100
+        informations[1][7] = self.combo / 10
+        informations[2][7] = self.pre_back2back
+        informations[3][7] = self._attacked / GRID_DEPTH
+        # informations[3][8] = self.time / MAX_TIME
 
         return_grids = np.concatenate((return_grids, informations), axis=0)
 
