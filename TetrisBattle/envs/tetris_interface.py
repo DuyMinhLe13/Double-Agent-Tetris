@@ -175,20 +175,25 @@ class TetrisInterface(abc.ABC):
         ob = np.transpose(ob, (1, 0, 2))
         return ob
 
-    def get_seen_grid(self):
-        grid_1 = self.tetris_list[self.now_player]["tetris"].get_grid()
+    def get_seen_grid(self, mode="single"):
+        now_player = self.now_player
+        opp_player = 1 - self.now_player
+        if mode == "double":
+            now_player = 1 - self.now_player
+            opp_player = self.now_player
+        grid_1 = self.tetris_list[now_player]["tetris"].get_grid()
         grid_1[-1][-1] = self.time / MAX_TIME
         # print(grid_1)
-        grid_2 = self.tetris_list[1 - self.now_player]["tetris"].get_grid()
+        grid_2 = self.tetris_list[opp_player]["tetris"].get_grid()
         grid_2[-1][-1] = self.time / MAX_TIME
         grid = np.concatenate([grid_1, grid_2], axis=1)
 
         return grid.reshape(grid.shape[0], grid.shape[1], 1)
         # return self.tetris_list[self.now_player]["tetris"].get_grid().reshape(GRID_DEPTH, GRID_WIDTH, 1)
 
-    def get_obs(self):
+    def get_obs(self, mode="single"):
         if self._obs_type == "grid":
-            return self.get_seen_grid()
+            return self.get_seen_grid(mode=mode)
         elif self._obs_type == "image":
             img = self.get_screen_shot()
         return img
