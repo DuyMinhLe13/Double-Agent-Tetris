@@ -293,7 +293,7 @@ def get_add_info(state):
 
 class Agent:
     def __init__(self):
-        self.weights = np.load('weight.npy')
+        self.weights = np.load('./weight.npy')
         self.moves = []
         self.agent = Ai()
         self.prev_add_info = None
