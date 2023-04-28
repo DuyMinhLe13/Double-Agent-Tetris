@@ -67,7 +67,7 @@ class TetrisEnv(gym.Env, abc.ABC):
         # Reset the state of the environment to an initial state
 
         ob = self.game_interface.reset()
-
+        ob, _, _, _, = self.game_interface.act(0)
         return ob
     
     def render(self, mode='human', close=False):
@@ -131,6 +131,8 @@ class TetrisDoubleEnv(TetrisEnv):
         # Execute one time step within the environment
 
         ob, reward, end, infos = self.game_interface.act(action)
+        ob, reward_noop, end, infos = self.game_interface.act(0)
+        reward += reward_noop
 
         # if len(infos) != 0:
         #     reward += infos['height_sum'] / 50 / 1000
