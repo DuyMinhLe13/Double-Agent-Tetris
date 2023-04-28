@@ -452,7 +452,7 @@ class TetrisSingleInterface(TetrisInterface):
         self.myClock.tick(FPS)  
         pygame.display.flip()
 
-        ob = self.get_obs()
+        ob = self.get_obs(mode="single")
 
         infos = {'is_fallen': tetris.is_fallen}
 
@@ -628,7 +628,7 @@ class TetrisDoubleInterface(TetrisInterface):
         self.myClock.tick(FPS)  
         pygame.display.flip()
 
-        ob = self.get_obs()
+        ob = self.get_obs(mode="double")
 
         infos = {'now_player': self.now_player}
 
