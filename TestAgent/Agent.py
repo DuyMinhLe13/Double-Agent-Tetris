@@ -3,6 +3,68 @@ import numpy as np
 import copy
 import os
 
+class Agent:
+    def __init__(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        weight_file_path = os.path.join(dir_path, 'weight.npy')
+        self.weights = np.load(weight_file_path)
+        self.moves = []
+        self.agent = Ai()
+        self.prev_add_info = None
+        self.check_left = False
+        self.check_drop = 0
+        self.rotate_left_act = False
+        self.check_intra_drop = False
+    
+    def choose_action(self, observation):
+        board, piece, next_piece, offsetx = convert_state(observation)
+        add_info = get_add_info(observation)
+
+        if self.prev_add_info is None or not torch.all(self.prev_add_info == add_info).item():
+            if self.check_drop < 4:
+                self.check_drop += 1
+                return 0
+            if not self.check_left:
+                self.check_left = True
+                return 6
+            self.moves.extend(self.agent.choose(board, piece, next_piece, offsetx, self.weights))
+            self.check_intra_drop = True
+            self.prev_add_info = add_info
+        else: 
+            self.check_left = False
+            self.check_drop = 0
+        if len(self.moves) > 0:
+            action = self.moves[0]
+            if action == 'UP':
+                self.rotate_left_act = True
+                self.moves.pop(0)
+                return 4
+            
+            if self.rotate_left_act:
+                state1 = torch.tensor(observation[:, :17])
+                state1 = torch.squeeze(state1)
+                offsetx1 = get_offset(state1)
+                if offsetx1 > 3: return 6
+                self.rotate_left_act = False
+            if action == 'LEFT':
+                self.moves.pop(0) 
+                return 6
+            if action == 'RIGHT':
+                self.moves.pop(0) 
+                return 5
+        else:
+            if self.rotate_left_act:
+                state1 = torch.tensor(observation[:, :17])
+                state1 = torch.squeeze(state1)
+                offsetx1 = get_offset(state1)
+                if offsetx1 > 3: return 6
+                self.rotate_left_act = False
+            if self.check_intra_drop:
+                self.check_intra_drop = False
+                return 2
+        return 0
+
+
 class Field:
     def __init__(self, width, height):
         self.width = width
@@ -291,64 +353,3 @@ def get_add_info(state):
     info_tensor = torch.argmax(add_info[1:7], dim=1)
     info_tensor += 1; info_tensor
     return info_tensor
-
-class Agent:
-    def __init__(self):
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        weight_file_path = os.path.join(dir_path, 'weight.npy')
-        self.weights = np.load(weight_file_path)
-        self.moves = []
-        self.agent = Ai()
-        self.prev_add_info = None
-        self.check_left = False
-        self.check_drop = 0
-        self.rotate_left_act = False
-        self.check_intra_drop = False
-    
-    def choose_action(self, observation):
-        board, piece, next_piece, offsetx = convert_state(observation)
-        add_info = get_add_info(observation)
-
-        if self.prev_add_info is None or not torch.all(self.prev_add_info == add_info).item():
-            if self.check_drop < 4:
-                self.check_drop += 1
-                return 0
-            if not self.check_left:
-                self.check_left = True
-                return 6
-            self.moves.extend(self.agent.choose(board, piece, next_piece, offsetx, self.weights))
-            self.check_intra_drop = True
-            self.prev_add_info = add_info
-        else: 
-            self.check_left = False
-            self.check_drop = 0
-        if len(self.moves) > 0:
-            action = self.moves[0]
-            if action == 'UP':
-                self.rotate_left_act = True
-                self.moves.pop(0)
-                return 4
-            
-            if self.rotate_left_act:
-                state1 = torch.tensor(observation[:, :17])
-                state1 = torch.squeeze(state1)
-                offsetx1 = get_offset(state1)
-                if offsetx1 > 3: return 6
-                self.rotate_left_act = False
-            if action == 'LEFT':
-                self.moves.pop(0) 
-                return 6
-            if action == 'RIGHT':
-                self.moves.pop(0) 
-                return 5
-        else:
-            if self.rotate_left_act:
-                state1 = torch.tensor(observation[:, :17])
-                state1 = torch.squeeze(state1)
-                offsetx1 = get_offset(state1)
-                if offsetx1 > 3: return 6
-                self.rotate_left_act = False
-            if self.check_intra_drop:
-                self.check_intra_drop = False
-                return 2
-        return 0
