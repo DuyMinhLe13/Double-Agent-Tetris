@@ -1,6 +1,7 @@
 import torch
 import numpy as np
 import copy
+import os
 
 class Field:
     def __init__(self, width, height):
@@ -293,7 +294,9 @@ def get_add_info(state):
 
 class Agent:
     def __init__(self):
-        self.weights = np.load('./weight.npy')
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        weight_file_path = os.path.join(dir_path, 'weight.npy')
+        self.weights = np.load(weight_file_path)
         self.moves = []
         self.agent = Ai()
         self.prev_add_info = None
