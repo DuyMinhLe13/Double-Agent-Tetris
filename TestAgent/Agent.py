@@ -21,7 +21,7 @@ class Agent:
         add_info = get_add_info(observation)
 
         if self.prev_add_info is None or not torch.all(self.prev_add_info == add_info).item():
-            if self.check_drop < 4:
+            if self.check_drop < 3:
                 self.check_drop += 1
                 return 0
             if not self.check_left:
@@ -30,7 +30,7 @@ class Agent:
             self.moves.extend(self.agent.choose(board, piece, next_piece, offsetx, self.weights))
             self.check_intra_drop = True
             self.prev_add_info = add_info
-        else: 
+            
             self.check_left = False
             self.check_drop = 0
         if len(self.moves) > 0:
