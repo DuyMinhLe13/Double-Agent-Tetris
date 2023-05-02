@@ -440,7 +440,7 @@ class TetrisSingleInterface(TetrisInterface):
 
         self.time = self.update_time(self.time)
 
-        if self.time == 0:
+        if self.time <= 0:
             reward_notdie = 0.3 * self.total_reward
             end = 1
 
