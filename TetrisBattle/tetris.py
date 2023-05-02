@@ -895,7 +895,7 @@ class Tetris(object):
 
         self.build_garbage(self.grid, real_attacked)
 
-        self._attacked = real_attacked
+        self._attacked = 0
         
         return scores
 
