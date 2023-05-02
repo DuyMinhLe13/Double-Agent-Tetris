@@ -619,7 +619,7 @@ class TetrisDoubleInterface(TetrisInterface):
 
         self.time = self.update_time(self.time)
 
-        if self.time == 0:
+        if self.time <= 0:
             winner = Judge.who_win(tetris, opponent["tetris"])
             end = 1
 
