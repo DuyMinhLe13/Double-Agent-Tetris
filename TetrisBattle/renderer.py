@@ -26,7 +26,7 @@ class Renderer(object):
 
         if name2 != None:
           text2 = pygame.font.SysFont('Comic Sans MS', fontsize, bold=False).render(name2, False, (255, 0, 0))
-          self.screen.blit(text1, (712, 80))
+          self.screen.blit(text2, (712, 80))
 
     # this function draws the combo number, return True if sucessfully draw
     def drawCombo(self, tetris, sx, sy):
