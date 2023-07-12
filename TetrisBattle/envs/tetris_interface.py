@@ -244,7 +244,7 @@ class TetrisInterface(abc.ABC):
 
         return action
 
-    def reset(self):
+    def reset(self, avatar1_path=None, avatar2_path=None, name1=None, name2=None, fontsize=40):
         # Reset the state of the environment to an initial state
 
         self.time = MAX_TIME
@@ -272,6 +272,7 @@ class TetrisInterface(abc.ABC):
 
             self.renderer.drawGameScreen(tetris)
 
+        self.renderer.drawAvatar(img_path1=avatar1_path, img_path2=avatar2_path, name1=name1, name2=name2, fontsize=fontsize)
         self.renderer.drawTime2p(self.time)
        
         #time goes until it hits zero
