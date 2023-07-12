@@ -60,13 +60,13 @@ class TetrisEnv(gym.Env, abc.ABC):
     def take_turns(self):
         return self.game_interface.take_turns()
         
-    def reset(self):
+    def reset(self, avatar1_path=None, avatar2_path=None, name1=None, name2=None, fontsize=40):
 
         self.accum_rewards = 0
         self.infos = {}
         # Reset the state of the environment to an initial state
 
-        ob = self.game_interface.reset()
+        ob = self.game_interface.reset(avatar1_path=avatar1_path, avatar2_path=avatar2_path, name1=name1, name2=name2, fontsize=fontsize)
         ob, _, _, _, = self.game_interface.act(0)
         return ob
     
