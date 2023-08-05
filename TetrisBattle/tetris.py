@@ -624,9 +624,8 @@ class Tetris(object):
         excess = len(self.grid[0]) - GRID_DEPTH
         b = block.now_block()
         
-        excess = 0
         for i in range(len(self.grid)):
-            return_grids[i] = np.array(self.grid[i][excess:GRID_DEPTH], dtype=np.float32)
+            return_grids[i] = np.array(self.grid[i][excess:GRID_DEPTH] + [1 for i in range(excess)], dtype=np.float32)
         return_grids[return_grids > 0] = 1
 
         add_y = hardDrop(self.grid, self.block, self.px, self.py)
