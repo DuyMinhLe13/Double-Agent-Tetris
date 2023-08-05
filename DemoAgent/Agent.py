@@ -1,4 +1,5 @@
 import torch
+import os
 class Network(torch.nn.Module):
     def __init__(self, n_actions, input_dims, hidden_dims=1024):
         super().__init__()
@@ -24,7 +25,7 @@ class Agent:
         weight_file_path = os.path.join(dir_path, turn, 'weight')
         
         self.network = Network(8, 340)
-        self.network.load_state_dict(torch.load('weight'))
+        self.network.load_state_dict(torch.load(weight_file_path))
     
     def choose_action(self, observation):
         state = torch.flatten(torch.tensor(observation[:, :17])).to(self.network.device)
