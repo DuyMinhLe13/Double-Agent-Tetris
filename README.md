@@ -7,3 +7,7 @@ Note: In colab notebook you can see demo of game
 
 # Custom reward
 You can define your reward function in `reward_func` in `TetrisBattle/envs/tetris_interface.py`
+
+# References
+[ylsung TetrisBattle](https://github.com/ylsung/TetrisBattle) </br>
+[Paper](https://ylsung.github.io/files/tetris_battle.pdf)
