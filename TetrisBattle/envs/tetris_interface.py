@@ -574,7 +574,7 @@ class TetrisDoubleInterface(TetrisInterface):
                 
                 opponent["tetris"].update_ko()
 
-                tetris.clear_garbage()
+                # tetris.clear_garbage()
 
                 self.renderer.drawByName("ko", *pos["ko"])
                 self.renderer.drawByName("transparent", *pos["transparent"])
