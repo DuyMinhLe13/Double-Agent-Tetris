@@ -19,7 +19,10 @@ class Network(torch.nn.Module):
         return V, A
 
 class Agent:
-    def __init__(self):
+    def __init__(self, turn):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        weight_file_path = os.path.join(dir_path, turn, 'weight')
+        
         self.network = Network(8, 340)
         self.network.load_state_dict(torch.load('weight'))
     
