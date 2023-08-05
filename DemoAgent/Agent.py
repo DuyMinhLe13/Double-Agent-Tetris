@@ -1,7 +1,7 @@
 import torch
 import os
 class Network(torch.nn.Module):
-    def __init__(self, n_actions, input_dims, hidden_dims=1024):
+    def __init__(self, n_actions, input_dims, hidden_dims=30):
         super().__init__()
 
         self.fc1 = torch.nn.Linear(input_dims, hidden_dims)
