@@ -9,5 +9,5 @@ Note: In colab notebook you can see demo of game
 You can define your reward function in `reward_func` in `TetrisBattle/envs/tetris_interface.py`
 
 # References
-[ylsung TetrisBattle](https://github.com/ylsung/TetrisBattle) </br>
+[ylsung - TetrisBattle](https://github.com/ylsung/TetrisBattle) </br>
 [Paper](https://ylsung.github.io/files/tetris_battle.pdf)
