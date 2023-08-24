@@ -10,6 +10,7 @@ class Renderer(object):
         self.images = images
 
     def drawAvatar(self, img_path1=None, name1=None, img_path2=None, name2=None, fontsize=40):
+        pygame.font.init()
         if img_path1 != None:
           img1 = pygame.image.load(img_path1)
           img1 = pygame.transform.scale(img1, (45, 45))
